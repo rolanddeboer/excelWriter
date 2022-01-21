@@ -24,11 +24,11 @@ int main( )
    //if (! tmpnam(filename) ) {};
 
    excelWriter = new ExcelWriter( filename );
-//   excelWriter->write( inputParser->parseInput() );
-//   excelWriter->close();
+   excelWriter->write( inputParser->parseInput() );
+   excelWriter->close();
 
-//   ifstream f( filename );
-//   if (f.is_open()) cout << f.rdbuf();
+   ifstream f( filename );
+   if (f.is_open()) cout << f.rdbuf();
 
    remove ( filename );
 
