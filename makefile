@@ -18,4 +18,5 @@ test: main.cpp InputParser.cpp types.h
 	-o test main.cpp \
  	-lz \
 	-static-libstdc++ \
-	-Wall -Wextra
+	-Wall -Wextra \
+	-fconcepts
