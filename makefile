@@ -12,8 +12,6 @@
 excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h
 	g++ \
 	-O2 \
-	-L lib \
-	-I include \
 	-I /usr/local/include \
 	-L /usr/local/lib \
 	-std=c++20 \
