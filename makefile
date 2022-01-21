@@ -15,7 +15,7 @@ test: main.cpp InputParser.cpp types.h
 	-L lib \
 	-I include \
 	-std=c++20 \
-	-o test main.cpp
+	-o test main.cpp \
  	-lz \
 	-static-libstdc++ \
 	-Wall -Wextra
