@@ -9,7 +9,7 @@
 # 	-static-libstdc++ \
 # 	-Wall -Wextra
 
-excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h lib/libxlsxwriter.a
+excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h
 	g++ \
 	-O2 \
 	-L lib \
