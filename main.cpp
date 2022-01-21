@@ -13,7 +13,7 @@ using namespace std;
 int main( ) 
 {
   cout << "hi";
-  InputParser* inputParser;
+  //InputParser* inputParser;
 //   ExcelWriter* excelWriter;
 //   string line;
 
