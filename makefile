@@ -15,7 +15,7 @@ excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h lib/libxlsxwriter.
 	-L lib \
 	-I include \
 	-std=c++20 \
-	-o excelWriter main.cpp \
+	-o excelWriter main.cpp lib/libxlsxwriter.a \
  	-lz \
 	-static-libstdc++ \
 	-Wall -Wextra 
