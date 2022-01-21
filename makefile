@@ -14,7 +14,7 @@ test: main.cpp InputParser.cpp types.h
 	-O2 \
 	-L lib \
 	-I include \
-	-std=c++2a \
+	-std=c++20 \
 	-o test main.cpp \
  	-lz \
 	-static-libstdc++ \
