@@ -3,4 +3,4 @@
 git add .
 git commit -m '.'
 git push
-# ssh -t dhenuh /var/dev/excelWriter/update.sh
+ssh -t dhenuh /var/dev/excelWriter/update.sh

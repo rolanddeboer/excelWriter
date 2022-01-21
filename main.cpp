@@ -3,17 +3,17 @@
 #include <fstream>
 #include <unistd.h>
 
-//#include "xlsxwriter.h"
-//#include "InputParser.cpp"
+#include "xlsxwriter.h"
+#include "InputParser.cpp"
 //#include "ExcelWriter.cpp"
-//#include "types.h"
+#include "types.h"
 
 using namespace std;
 
 int main( ) 
 {
   cout << "hi";
-  //InputParser* inputParser;
+  // InputParser* inputParser;
 //   ExcelWriter* excelWriter;
 //   string line;
 
@@ -33,7 +33,7 @@ int main( )
 //   remove ( filename );
 
 //   delete excelWriter;
-   //delete inputParser;
+   // delete inputParser;
 
-   //return 0;
+   return 0;
 }
