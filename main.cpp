@@ -6,7 +6,7 @@
 #include "xlsxwriter.h"
 //#include "InputParser.cpp"
 //#include "ExcelWriter.cpp"
-//#include "types.h"
+#include "types.h"
 
 using namespace std;
 

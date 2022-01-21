@@ -9,7 +9,7 @@
 # 	-static-libstdc++ \
 # 	-Wall -Wextra
 
-test: main.cpp
+test: main.cpp types.h
 	g++ \
 	-std=c++0x \
 	-o test main.cpp
