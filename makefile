@@ -11,5 +11,5 @@
 
 test: main.cpp InputParser.cpp types.h
 	g++ \
-	-std=c++0x \
+	-std=c++20 \
 	-o test main.cpp
