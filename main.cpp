@@ -10,7 +10,11 @@
 
 using namespace std;
 
-int main( ) 
+int main() {
+  cout << "hi";
+}
+
+int main_original( ) 
 {
   InputParser* inputParser;
   ExcelWriter* excelWriter;
