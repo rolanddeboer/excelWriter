@@ -1,0 +1,33 @@
+{
+  "booleanWords": {
+    "true": "ja",
+    "false": "nee"
+  },
+  "sheets": 
+  [
+    {
+      "title": "Inzenders",
+      "freezeColumns": 1,
+      "columns": [
+        { "title": "Inzender", "format": "string" },
+        { "title": "Ingevoerd op", "format": "date" },
+        { "title": "Jeugdlid", "format": "boolean" },
+        { "title": "Te betalen", "format": "currency" },
+        { "title": "Reeds betaald", "format": "currency" },
+        { "title": "Bedrag resterend", "format": "currency", "diff": true },
+        { "title": "Dieren show", "format": "integer" },
+        { "title": "Verkoophoek", "format": "integer" },
+        { "title": "Ter erkenning", "format": "integer" },
+        { "title": "Transport", "format": "integer" },
+        { "title": "Vrije verkoop", "format": "integer" },
+        { "title": "Dieren totaal", "format": "integer", "sum": 5 },
+        { "title": "Catalogus", "format": "integer" },
+        { "title": "Bijdrage", "format": "currency" }
+      ],
+      "rows": [
+        [ "M. Apperlo", 1548271586, false, 3500, 0, 0, 11, 3, 0, 0, 1, 0, 1, 110 ],
+        [ "W.R. de Boer", 1548171586, true, 8700, 1000, 0, 23, 0, 0, 0, 0, 0, 1, 300 ]
+      ]
+    }
+  ]
+}
