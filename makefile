@@ -9,15 +9,13 @@
 # 	-static-libstdc++ \
 # 	-Wall -Wextra
 
-excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h
+excelWriter: main.cpp ExcelWriter.cpp InputParser.cpp types.h lib/libxlsxwriter.a
 	g++ \
 	-O2 \
 	-L lib \
 	-I include \
 	-std=c++20 \
 	-o excelWriter main.cpp \
- 	-lxlsxwriter \
  	-lz \
 	-static-libstdc++ \
-	-static-libxlsxwriter \
 	-Wall -Wextra 
