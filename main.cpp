@@ -10,10 +10,6 @@
 
 using namespace std;
 
-int main() {
-   InputParser* inputParser;
-}
-
 int main( ) 
 {
   cout << "hi";
