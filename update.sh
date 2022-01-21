@@ -6,3 +6,4 @@ cd "$DIR"
 git stash
 git pull
 make
+./test
