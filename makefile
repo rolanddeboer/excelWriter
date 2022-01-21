@@ -16,7 +16,7 @@ test: main.cpp ExcelWriter.cpp InputParser.cpp types.h
 	-I include \
 	-std=c++20 \
 	-o test main.cpp \
-# 	-l xlsxwriter.a \
+ 	-l xlsxwriter \
  	-lz \
 	-static-libstdc++ \
 	-Wall -Wextra 
