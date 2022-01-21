@@ -11,5 +11,11 @@
 
 test: main.cpp InputParser.cpp types.h
 	g++ \
-	-std=c++14 \
-	-o test main.cpp
+	-O2 \
+	-L lib \
+	-I include \
+	-std=c++2a \
+	-o test main.cpp \
+ 	-lz \
+	-static-libstdc++ \
+	-Wall -Wextra
