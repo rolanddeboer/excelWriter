@@ -9,7 +9,7 @@
 # 	-static-libstdc++ \
 # 	-Wall -Wextra
 
-test: main.cpp InputParser.cpp types.h
+test: main.cpp ExcelWriter.cpp InputParser.cpp types.h
 	g++ \
 	-O2 \
 	-L lib \
