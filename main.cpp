@@ -33,7 +33,7 @@ int main( )
 //   remove ( filename );
 
 //   delete excelWriter;
-   // delete inputParser;
+   delete inputParser;
 
    return 0;
 }
