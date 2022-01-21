@@ -14,9 +14,8 @@ test: main.cpp InputParser.cpp types.h
 	-O2 \
 	-L lib \
 	-I include \
-	-std=c++14 \
+	-std=c++20 \
 	-o test main.cpp \
  	-lz \
 	-static-libstdc++ \
-	-Wall -Wextra \
-	-fconcepts
+	-Wall -Wextra 
