@@ -18,7 +18,7 @@ int main( )
 
   inputParser = new InputParser();
 
-//   // The compiler gives a warning about tmpnam. The reason why its use is discouraged is that even though the filename is unique at the time of calling tmpnam, it might not be unique any more by the time the file is actually created. Mkstemp is recommended because it actually creates the file. But because we are not actually in control of the file creation (Libxlxswriter is), we can't make use of that.
+   // The compiler gives a warning about tmpnam. The reason why its use is discouraged is that even though the filename is unique at the time of calling tmpnam, it might not be unique any more by the time the file is actually created. Mkstemp is recommended because it actually creates the file. But because we are not actually in control of the file creation (Libxlxswriter is), we can't make use of that.
    char filename[L_tmpnam];
    if (! tmpnam(filename) ) {};
 
