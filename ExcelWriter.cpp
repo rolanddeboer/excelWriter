@@ -167,7 +167,22 @@ public:
     }
   }
 
+  void writeRows( auto worksheet, Sheet &sheet )
+  {
+    for (int col = 0; col < (int) sheet.columns.size(); col++) {
+      int row;
+      for (row = 0; row < sheet.rowCount; row++) {
+        writeField( worksheet, sheet, row, col );
+      }
+      if ( sheet.columns[col].showTotal ) {
+        writeTotal( worksheet, sheet, row, col );       
+      }
+    }
+  }
+  
   void writeField(auto worksheet, Sheet &sheet, int row, int col) {
+
+    // Text content
     if ( 
       sheet.columns[col].format == FORMAT_TEXT 
       || sheet.columns[col].format == FORMAT_LONGTEXT 
@@ -180,7 +195,8 @@ public:
         sheet.columns[col].stringValues[row].c_str(), 
         NULL 
       );
-    // Writing sum formula
+
+    // Sum formula
     } else if ( sheet.columns[col].sum > 0 ) {
       double value = 0;
       for (int i = 1; i <= sheet.columns[col].sum; i++) {
@@ -203,7 +219,8 @@ public:
         NULL,
         value
       );
-    // Writing difference formula
+
+    // Difference formula
     } else if ( sheet.columns[col].diff ) {
       string formula = 
         "=" 
@@ -222,7 +239,8 @@ public:
         NULL,
         value
       );
-    // Writing number content
+
+    // Number content
     } else {
       double value = sheet.columns[col].intValues[row];
       if ( sheet.columns[col].showTotal ) sheet.columns[col].total += value;
@@ -268,19 +286,6 @@ public:
         format,
         sheet.columns[col].total
       );
-  }
-
-  void writeRows( auto worksheet, Sheet &sheet )
-  {
-    for (int col = 0; col < (int) sheet.columns.size(); col++) {
-      int row;
-      for (row = 0; row < sheet.rowCount; row++) {
-        writeField( worksheet, sheet, row, col );
-      }
-      if ( sheet.columns[col].showTotal ) {
-        writeTotal( worksheet, sheet, row, col );       
-      }
-    }
   }
 
 };
