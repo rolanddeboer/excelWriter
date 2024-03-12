@@ -1,27 +1,15 @@
 {
     "configurations": [
         {
-            "name": "Mac",
+            "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
             "defines": [],
-            "macFrameworkPath": [],
-            "compilerPath": "/usr/bin/g++",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++20",
-            "intelliSenseMode": "macos-gcc-x64",
-            "compilerArgs": [
-                "-o excelWriter main.cpp \\",
-                "\t-std=c++20 \\",
-                "\t-O2 \\",
-                "\t-L lib \\",
-                "\t-I include \\",
-                "\t-lxlsxwriter \\",
-                " \t-lz \\",
-                "\t-Wall -Wextra "
-            ],
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4

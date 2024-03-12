@@ -1,7 +1,8 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2018, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * SPDX-License-Identifier: BSD-2-Clause
+ * Copyright 2014-2024, John McNamara, jmcnamara@cpan.org.
  *
  * drawing - A libxlsxwriter library for creating Excel XLSX drawing files.
  *
@@ -10,6 +11,7 @@
 #define __LXW_DRAWING_H__
 
 #include <stdint.h>
+#include <string.h>
 
 #include "common.h"
 
@@ -22,24 +24,12 @@ enum lxw_drawing_types {
     LXW_DRAWING_SHAPE
 };
 
-enum lxw_anchor_types {
-    LXW_ANCHOR_TYPE_NONE = 0,
-    LXW_ANCHOR_TYPE_IMAGE,
-    LXW_ANCHOR_TYPE_CHART
-};
-
-enum lxw_anchor_edit_types {
-    LXW_ANCHOR_EDIT_AS_NONE = 0,
-    LXW_ANCHOR_EDIT_AS_RELATIVE,
-    LXW_ANCHOR_EDIT_AS_ONE_CELL,
-    LXW_ANCHOR_EDIT_AS_ABSOLUTE
-};
-
 enum image_types {
     LXW_IMAGE_UNKNOWN = 0,
     LXW_IMAGE_PNG,
     LXW_IMAGE_JPEG,
-    LXW_IMAGE_BMP
+    LXW_IMAGE_BMP,
+    LXW_IMAGE_GIF
 };
 
 /* Coordinates used in a drawing object. */
@@ -52,18 +42,20 @@ typedef struct lxw_drawing_coords {
 
 /* Object to represent the properties of a drawing. */
 typedef struct lxw_drawing_object {
-    uint8_t anchor_type;
-    uint8_t edit_as;
+    uint8_t type;
+    uint8_t anchor;
     struct lxw_drawing_coords from;
     struct lxw_drawing_coords to;
-    uint32_t col_absolute;
-    uint32_t row_absolute;
+    uint64_t col_absolute;
+    uint64_t row_absolute;
     uint32_t width;
     uint32_t height;
     uint8_t shape;
+    uint32_t rel_index;
+    uint32_t url_rel_index;
     char *description;
-    char *url;
     char *tip;
+    uint8_t decorative;
 
     STAILQ_ENTRY (lxw_drawing_object) list_pointers;
 
@@ -90,7 +82,7 @@ extern "C" {
 #endif
 /* *INDENT-ON* */
 
-lxw_drawing *lxw_drawing_new();
+lxw_drawing *lxw_drawing_new(void);
 void lxw_drawing_free(lxw_drawing *drawing);
 void lxw_drawing_assemble_xml_file(lxw_drawing *self);
 void lxw_free_drawing_object(struct lxw_drawing_object *drawing_object);

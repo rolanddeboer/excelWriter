@@ -1,7 +1,8 @@
 /*
  * libxlsxwriter
  *
- * Copyright 2014-2018, John McNamara, jmcnamara@cpan.org. See LICENSE.txt.
+ * SPDX-License-Identifier: BSD-2-Clause
+ * Copyright 2014-2024, John McNamara, jmcnamara@cpan.org.
  *
  * app - A libxlsxwriter library for creating Excel XLSX app files.
  *
@@ -46,6 +47,7 @@ typedef struct lxw_app {
 
     uint32_t num_heading_pairs;
     uint32_t num_part_names;
+    uint8_t doc_security;
 
 } lxw_app;
 
@@ -56,7 +58,7 @@ extern "C" {
 #endif
 /* *INDENT-ON* */
 
-lxw_app *lxw_app_new();
+lxw_app *lxw_app_new(void);
 void lxw_app_free(lxw_app *app);
 void lxw_app_assemble_xml_file(lxw_app *self);
 void lxw_app_add_part_name(lxw_app *self, const char *name);
