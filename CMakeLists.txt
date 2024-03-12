@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(include)
 find_package(ZLIB REQUIRED)
+
 add_executable(excelWriter main.cpp)
 
 target_link_libraries(excelWriter ${PROJECT_SOURCE_DIR}/lib/libxlsxwriter.a ZLIB::ZLIB)

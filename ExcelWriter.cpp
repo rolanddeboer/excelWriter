@@ -1,4 +1,5 @@
 #include <math.h>
+#include <cassert>
 
 #include "types.h"
 
@@ -21,10 +22,10 @@ class ExcelWriter
     header.fontname = "Calibri";
     header.fontsize = 11;
     header.color = 0xb16e3e;
-    header.height = 42;
+    header.height = 48;
 
     text.fontname = "Calibri";
-    text.fontsize = 12;
+    text.fontsize = 11;
     text.height = 17;
 
     hasTotals = false;

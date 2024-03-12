@@ -18,18 +18,27 @@ class InputParser
 
 public:
 
-  InputParser( string json ) 
-  {
-    data.Parse(json.c_str());
-  }
+  // InputParser( string json ) 
+  // {
+  //   data.Parse(json.c_str());
+  // }
 
-  InputParser()
+  // InputParser()
+  // {
+  //   //FILE* fp = fopen("testdata.json", "r");
+  //   char readBuffer[65536];
+  //   FileReadStream is(stdin, readBuffer, sizeof(readBuffer));
+  //   data.ParseStream(is);
+  //   // fclose(fp);
+  // }
+
+  InputParser( string filename )
   {
-    //FILE* fp = fopen("testdata.json", "r");
+    FILE* fp = fopen(filename.c_str(), "r");
     char readBuffer[65536];
-    FileReadStream is(stdin, readBuffer, sizeof(readBuffer));
+    FileReadStream is(fp, readBuffer, sizeof(readBuffer));
     data.ParseStream(is);
-    // fclose(fp);
+    fclose(fp);
   }
 
   Input parseInput()
