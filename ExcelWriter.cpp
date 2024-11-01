@@ -138,6 +138,7 @@ public:
     worksheet_set_row(worksheet, 0, header.height, formats[FORMAT_HEADER]);
     for (int col = 0; col < (int) sheet.columns.size(); col++) {
       sheet.columns[col].total = 0;
+      if ( !sheet.columns[col].full ) continue;
       if ( sheet.columns[col].showTotal ) hasTotals = true;
       worksheet_write_string(
         worksheet, 
@@ -170,6 +171,7 @@ public:
   void writeRows( auto worksheet, Sheet &sheet )
   {
     for (int col = 0; col < (int) sheet.columns.size(); col++) {
+      if ( !sheet.columns[col].full ) continue;
       int row;
       for (row = 0; row < sheet.rowCount; row++) {
         writeField( worksheet, sheet, row, col );
@@ -261,31 +263,31 @@ public:
   void writeTotal(auto worksheet, Sheet &sheet, int row, int col) 
   {
     lxw_format *format = workbook_add_format (workbook );
-      format_set_bold( format );
-      format_set_font_name( format, text.fontname.c_str() );
-      format_set_font_size( format, text.fontsize );
-      if ( sheet.columns[col].format == FORMAT_CURRENCY ) {
-        sheet.columns[col].total = sheet.columns[col].total / 100;
-        format_set_num_format_index( format, 0x04 ); 
-      }
+    format_set_bold( format );
+    format_set_font_name( format, text.fontname.c_str() );
+    format_set_font_size( format, text.fontsize );
+    if ( sheet.columns[col].format == FORMAT_CURRENCY ) {
+      sheet.columns[col].total = sheet.columns[col].total / 100;
+      format_set_num_format_index( format, 0x04 ); 
+    }
 
-      string colLetter = excelColFromNumber( col );
-      string formula = 
-        "=SUM(" 
-        + colLetter
-        + "2"
-        + ":" + colLetter
-        + to_string( row + 1 )
-        + ")"
-      ;
-      worksheet_write_formula_num( 
-        worksheet, 
-        row + 2, 
-        col, 
-        formula.c_str(), 
-        format,
-        sheet.columns[col].total
-      );
+    string colLetter = excelColFromNumber( col );
+    string formula = 
+      "=SUM(" 
+      + colLetter
+      + "2"
+      + ":" + colLetter
+      + to_string( row + 1 )
+      + ")"
+    ;
+    worksheet_write_formula_num( 
+      worksheet, 
+      row + 2, 
+      col, 
+      formula.c_str(), 
+      format,
+      sheet.columns[col].total
+    );
   }
 
 };

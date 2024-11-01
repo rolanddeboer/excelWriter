@@ -20,6 +20,7 @@ using namespace std;
     FormatType format;
     double width;
     string title;
+    bool full;
     int sum;
     bool diff;
     double total;

@@ -81,6 +81,7 @@ public:
     for (int col=0; col < (int) columns.size(); col++) {
       columns[col].title = getTextProperty( "title", sheet["columns"][col] );
       columns[col].format = getFormatType( getTextProperty( "format", sheet["columns"][col] ) );
+      columns[col].full = getBoolProperty( "full", sheet["columns"][col] );
       columns[col].width = getIntProperty( "width", sheet["columns"][col] );
       columns[col].sum = getIntProperty( "sum", sheet["columns"][col] );
       columns[col].diff = getBoolProperty( "diff", sheet["columns"][col] );
