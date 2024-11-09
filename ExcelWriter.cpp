@@ -22,7 +22,9 @@ class ExcelWriter
     header.fontname = "Calibri";
     header.fontsize = 11;
     header.color = 0xb16e3e;
+    header.color = 0x000000;
     header.height = 48;
+    header.backgroundcolor = 0xd8d1c8;
 
     text.fontname = "Calibri";
     text.fontsize = 11;
@@ -56,7 +58,8 @@ class ExcelWriter
     format_set_font_name( formats[FORMAT_HEADER], header.fontname.c_str() ) ;
     format_set_font_size( formats[FORMAT_HEADER], header.fontsize );
     format_set_align( formats[FORMAT_HEADER], LXW_ALIGN_VERTICAL_TOP) ;
-    format_set_text_wrap( formats[FORMAT_HEADER] );   
+    format_set_text_wrap( formats[FORMAT_HEADER] );  
+    format_set_bg_color( formats[FORMAT_HEADER], header.backgroundcolor ); 
 
     // long text
     format_set_align( formats[FORMAT_LONGTEXT], LXW_ALIGN_VERTICAL_JUSTIFY) ;
@@ -64,6 +67,7 @@ class ExcelWriter
 
     // currency. Setting this to the index number because xlsxwriter does not accept non-us decimal seperators.
     format_set_num_format_index( formats[FORMAT_CURRENCY], 0x04 ); 
+    format_set_bg_color( formats[FORMAT_CURRENCY], header.backgroundcolor ); 
 
     // dates
     format_set_num_format( formats[FORMAT_DATE], "dd/mm/yyyy" );
@@ -136,14 +140,15 @@ public:
   //   worksheet_insert_image_opt(worksheet, 0, 0, "/var/www/html/ao2/server/public/images/shows/noordshow/logo.png", &options);
 
     worksheet_set_row(worksheet, 0, header.height, formats[FORMAT_HEADER]);
+    int colpos = 0;
     for (int col = 0; col < (int) sheet.columns.size(); col++) {
+      if ( sheet.columns[col].hide ) continue;
       sheet.columns[col].total = 0;
-      if ( !sheet.columns[col].full ) continue;
       if ( sheet.columns[col].showTotal ) hasTotals = true;
       worksheet_write_string(
         worksheet, 
         0, 
-        col, 
+        colpos, 
         sheet.columns[col].title.c_str(), 
         NULL
       );
@@ -151,11 +156,12 @@ public:
       if ( width == 0 ) width = columnWidths[ sheet.columns[col].format ];
       worksheet_set_column( 
         worksheet, 
-        col, 
-        col, 
+        colpos, 
+        colpos, 
         width, 
-        formats[ sheet.columns[col].format ]
+        NULL
       );
+      colpos++;
     }
     if ( hasTotals ) {
       worksheet_write_string(
@@ -170,19 +176,22 @@ public:
 
   void writeRows( auto worksheet, Sheet &sheet )
   {
+    int colpos = 0;
     for (int col = 0; col < (int) sheet.columns.size(); col++) {
-      if ( !sheet.columns[col].full ) continue;
+      if ( sheet.columns[col].hide ) continue;
       int row;
       for (row = 0; row < sheet.rowCount; row++) {
-        writeField( worksheet, sheet, row, col );
+        writeField( worksheet, sheet, row, col, colpos );
       }
       if ( sheet.columns[col].showTotal ) {
-        writeTotal( worksheet, sheet, row, col );       
+        writeTotal( worksheet, sheet, row, col, colpos );       
       }
+      colpos++;
     }
   }
   
-  void writeField(auto worksheet, Sheet &sheet, int row, int col) {
+  void writeField(auto worksheet, Sheet &sheet, int row, int col, int colpos = -1) {
+    if (colpos == -1) colpos = col;
 
     // Text content
     if ( 
@@ -193,9 +202,9 @@ public:
       worksheet_write_string( 
         worksheet, 
         row + 1, 
-        col, 
+        colpos, 
         sheet.columns[col].stringValues[row].c_str(), 
-        NULL 
+        colpos == 0 ? formats[FORMAT_HEADER] : NULL
       );
 
     // Sum formula
@@ -216,7 +225,7 @@ public:
       worksheet_write_formula_num( 
         worksheet, 
         row + 1, 
-        col, 
+        colpos, 
         formula.c_str(), 
         NULL,
         value
@@ -236,7 +245,7 @@ public:
       worksheet_write_formula_num( 
         worksheet, 
         row + 1, 
-        col, 
+        colpos, 
         formula.c_str(), 
         NULL,
         value
@@ -248,19 +257,26 @@ public:
       if ( sheet.columns[col].showTotal ) sheet.columns[col].total += value;
       if ( sheet.columns[col].format == FORMAT_CURRENCY ) value = value / 100;
       if ( sheet.columns[col].format == FORMAT_DATE ) value = dateFromTimestamp( value );
-      if ( value > 0 ) {
+      if ( value == 0 ) {
+        worksheet_write_blank( 
+          worksheet, 
+          row + 1, 
+          colpos, 
+          formats[sheet.columns[col].format]
+        );
+      } else {
         worksheet_write_number( 
           worksheet, 
           row + 1, 
-          col, 
+          colpos, 
           value, 
-          NULL 
+          formats[sheet.columns[col].format]
         );
       }
     }
   }
 
-  void writeTotal(auto worksheet, Sheet &sheet, int row, int col) 
+  void writeTotal(auto worksheet, Sheet &sheet, int row, int col, int colpos) 
   {
     lxw_format *format = workbook_add_format (workbook );
     format_set_bold( format );
@@ -269,9 +285,10 @@ public:
     if ( sheet.columns[col].format == FORMAT_CURRENCY ) {
       sheet.columns[col].total = sheet.columns[col].total / 100;
       format_set_num_format_index( format, 0x04 ); 
+      format_set_bg_color( format, header.backgroundcolor );
     }
 
-    string colLetter = excelColFromNumber( col );
+    string colLetter = excelColFromNumber( colpos );
     string formula = 
       "=SUM(" 
       + colLetter
@@ -283,7 +300,7 @@ public:
     worksheet_write_formula_num( 
       worksheet, 
       row + 2, 
-      col, 
+      colpos, 
       formula.c_str(), 
       format,
       sheet.columns[col].total

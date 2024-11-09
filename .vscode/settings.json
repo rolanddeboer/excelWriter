@@ -18,5 +18,9 @@
     "titleBar.inactiveBackground": "#4e2d4299",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#4e2d42"
+  "peacock.color": "#4e2d42",
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "format": "cpp"
+  }
 }

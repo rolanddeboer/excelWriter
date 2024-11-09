@@ -20,7 +20,7 @@ using namespace std;
     FormatType format;
     double width;
     string title;
-    bool full;
+    bool hide;
     int sum;
     bool diff;
     double total;
@@ -38,6 +38,7 @@ using namespace std;
 
   struct TextStyle {
     long int color;
+    long int backgroundcolor;
     string fontname;
     int fontsize;
     int height;
